@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
+import Navbar from "./Components/Navbar";
+import Homepage from "./Pages/Homepage";
+import AddRequest from "./Pages/AddRequest";
+import { Box } from "@mui/system";
+import Recordings from "./Pages/Recordings";
+import Notifications from "./Pages/Notifications";
+import Settings from "./Pages/Settings";
+import Index from "./Pages/Index";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Box sx={{ width: "450px" }}>
+      {/* <Box>
+      <Navbar />
+    </Box> */}
+      {/* <Box sx = {{backgroundColor: "#E6E6E3", height: "100vh"}}> */}
+      {/* <Homepage /> */}
+      {/* <AddRequest /> */}
+      {/* <Recordings /> */}
+      {/* <Notifications /> */}
+      {/* <Settings /> */}
+      {/* </Box> */}
+      <Index />
+    </Box>
   );
 }
 

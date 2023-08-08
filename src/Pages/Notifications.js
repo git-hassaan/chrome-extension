@@ -28,36 +28,35 @@ const Notifications = () => {
     {
       name: "Person 1",
       desc: "Konvey homepage recording",
-      date: "2023-07-28",
+      date: "July 11, 2023",
     },
     {
       name: "Person 1",
       desc: "Konvey homepage recording",
-      date: "2023-07-28",
+      date: "July 11, 2023",
     },
     {
       name: "Person 1",
       desc: "Konvey homepage recording",
-      date: "2023-07-28",
+      date: "July 11, 2023",
     },
   ];
   return (
     <Box
       sx={{
         backgroundColor: "white",
-        width: "350px",
-        height: "100%",
-        boxShadow: "none",
-        paddingBottom: "50px",
+        paddingX: "20px",
+        paddingBottom: "63.5px",
+        borderRadius: "0 0 20px 20px",
+        // overflowY: "scroll",
       }}
     >
       {data.map((item) => (
-        <Card sx = {{border: "none", boxShadow: "none",}}>
+        <Card sx={{ border: "none", boxShadow: "none" }}>
           <Grid container>
             <Grid xs={2}>
               <CardHeader
-                avatar=
-                {
+                avatar={
                   <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                     R
                   </Avatar>
@@ -66,13 +65,17 @@ const Notifications = () => {
             </Grid>
             <Grid xs={10}>
               <CardContent>
-                <Typography sx = {{fontSize: "12px"}}>{item.name}</Typography>
-                <Typography sx = {{fontSize: "10px"}}>Watched <span style = {{color: "blue"}}>{item.desc}</span></Typography>
-                <Typography sx = {{fontSize: "10px"}}>{item.date}</Typography>
+                <Typography sx={{ fontSize: "15px" }}>{item.name}</Typography>
+                <Typography sx={{ fontSize: "13px" }}>
+                  Watched{" "}
+                  <span style={{ color: "#4197ee", cursor: "pointer" }}>
+                    {item.desc}
+                  </span>
+                </Typography>
+                <Typography sx={{ fontSize: "12px" }}>{item.date}</Typography>
               </CardContent>
             </Grid>
           </Grid>
-          
         </Card>
       ))}
     </Box>

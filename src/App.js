@@ -10,17 +10,15 @@ import Settings from "./Pages/Settings";
 import Index from "./Pages/Index";
 function App() {
   return (
-    <Box sx={{ width: "450px" }}>
-      {/* <Box>
-      <Navbar />
-    </Box> */}
-      {/* <Box sx = {{backgroundColor: "#E6E6E3", height: "100vh"}}> */}
-      {/* <Homepage /> */}
-      {/* <AddRequest /> */}
-      {/* <Recordings /> */}
-      {/* <Notifications /> */}
-      {/* <Settings /> */}
-      {/* </Box> */}
+    <Box
+      sx={{
+        margin: "50px",
+        width: "400px",
+        height: "450px",
+        borderRadius: "20px",
+        boxShadow: "0 0 10px rgba(0,0,0, 0.5)",
+      }}
+    >
       <Index />
     </Box>
   );

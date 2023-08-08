@@ -14,11 +14,13 @@ import {
   CardContent,
   CardActions,
   Typography,
+  IconButton,
   Grid,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { LabelOffTwoTone } from "@mui/icons-material";
+import LinkIcon from "@mui/icons-material/Link";
+
 const AddRequest = () => {
   const data = [
     {
@@ -45,13 +47,9 @@ const AddRequest = () => {
       editAction: "EditIcon",
       deleteAction: "DeleteIcon",
     },
-    
-  
-
-
   ];
+
   const cardText = { fontSize: "8px" };
-  const cardHeaderText = { fontSize: "12px" };
   const cardGrid = {
     display: "flex",
     justifyContent: "center",
@@ -62,94 +60,141 @@ const AddRequest = () => {
     <Box
       sx={{
         display: "flex",
-        justifyContent: "center",
-        boxShadow: "none",
         flexDirection: "column",
-        //height: "70vh",
-        width: "100%",
-        backgroundColor: "#E6E6E3",
-        paddingBottom: "50px",
-        
+        backgroundColor: "#edf2f7",
+        borderRadius: "0 0 20px 20px",
+        height: "363px",
       }}
     >
-        <Card
+      <Card
+        sx={{
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          borderRadius: "12px",
+          marginX: "25px",
+          height: "40px",
+        }}
+      >
+        <Box
           sx={{
-            width: "330px",
-            marginTop: "30px",
-            // marginY: "10px",
-            // marginLeft: "10px",
-            // marginRight: "10px",
             display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "12px",
-            marginX: "auto",
-            height: "40px",
+            justifyContent: "space-between",
+            width: "-webkit-fill-available",
+            padding: "20px",
           }}
         >
-          <Grid container sx={{ width: "100%" }}>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-                <Typography sx = {cardHeaderText}>Label</Typography>
-              </CardContent>
-            </Grid>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-                <Typography sx = {cardHeaderText}>Link URL</Typography>
-              </CardContent>
-            </Grid>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-                <Typography sx = {cardHeaderText}>Recordings</Typography>
-              </CardContent>
-            </Grid>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-              <Typography sx = {cardHeaderText}>Actions</Typography>
-              </CardContent>
-            </Grid>
-          </Grid>
-        </Card>
-      {data.map((item) => (
-        <Card
-          sx={{
-            width: "330px",
-            height: "40px",
-            marginY: "10px",
-            // marginLeft: "10px",
-            // marginRight: "10px",
-            marginX: "auto",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderRadius: "12px",
-          }}
-        >
-          <Grid container sx={{ width: "100%" }}>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-                <Typography sx={cardText}>{item.label}</Typography>
-              </CardContent>
-            </Grid>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-                <Typography sx={cardText}>{item.linkURL}</Typography>
-              </CardContent>
-            </Grid>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-                <Typography sx={cardText}>{item.numOfRecordings}</Typography>
-              </CardContent>
-            </Grid>
-            <Grid xs={3} sx={cardGrid}>
-              <CardContent>
-                <EditIcon size="small" sx={cardText} />{" "}
-                <DeleteIcon size="small" sx={cardText} />
-              </CardContent>
-            </Grid>
-          </Grid>
-        </Card>
-      ))}
+          <Box flex="0.3">
+            <Typography
+              sx={{
+                fontSize: "13px",
+                color: "rgba(0,0,0,0.8)",
+              }}
+            >
+              Label
+            </Typography>
+          </Box>
+          <Box flex="0.48">
+            <Typography
+              sx={{
+                fontSize: "13px",
+                color: "rgba(0,0,0,0.8)",
+              }}
+            >
+              Link URL
+            </Typography>
+          </Box>
+          <Box flex="0.6">
+            <Typography
+              sx={{
+                fontSize: "13px",
+                color: "rgba(0,0,0,0.8)",
+              }}
+            >
+              No of Recording
+            </Typography>
+          </Box>
+          <Box>
+            <Typography
+              sx={{
+                fontSize: "13px",
+                color: "rgba(0,0,0,0.8)",
+              }}
+            >
+              Action
+            </Typography>
+          </Box>
+        </Box>
+      </Card>
+      <Box>
+        {data.map((item) => (
+          <Card
+            sx={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "12px",
+              marginX: "25px",
+              height: "40px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "-webkit-fill-available",
+                padding: "20px",
+              }}
+            >
+              <Box flex="0.3">
+                <Typography
+                  sx={{
+                    fontSize: "11px",
+                    color: "rgba(0,0,0,0.7)",
+                  }}
+                >
+                  {item.label}
+                </Typography>
+              </Box>
+              <Box flex="0.6">
+                <Typography
+                  sx={{
+                    fontSize: "10px",
+                    color: "rgba(75,0,130,0.8)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {item.linkURL}
+                </Typography>
+              </Box>
+              <Box flex="0.4">
+                <Typography
+                  sx={{
+                    fontSize: "11px",
+                    color: "rgba(0,0,0,0.7)",
+                  }}
+                >
+                  {item.numOfRecordings}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                }}
+              >
+                <IconButton>
+                  <LinkIcon style={{ fontSize: "11px" }} />
+                </IconButton>
+                <IconButton>
+                  <DeleteIcon style={{ fontSize: "11px" }} />
+                </IconButton>
+              </Box>
+            </Box>
+          </Card>
+        ))}
+      </Box>
     </Box>
   );
 };

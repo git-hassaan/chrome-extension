@@ -5,35 +5,32 @@ import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, IconButton, Grid, Divider } from "@mui/material";
-const Navbar = ({ handleIconClick }) => {
+const Navbar = ({ handleIconClick, activePage }) => {
   let navIcons = [
     {
       icon: VideocamIcon,
-      label: "video icon",
-      //onClick: () => handleIconClick("VideocamIcon"),
-      onClick: () => {
-        alert("Screen recording request");
-      },
+      label: "homepage",
+      onClick: () => handleIconClick("homepage"),
     },
     {
       icon: ControlPointIcon,
-      label: "control icon",
+      label: "addRecording",
       onClick: () => handleIconClick("addRecording"),
     },
 
     {
       icon: VideoLibraryIcon,
-      label: "recorded vids icon",
+      label: "playRecording",
       onClick: () => handleIconClick("playRecording"),
     },
     {
       icon: NotificationsIcon,
-      label: "notification icon",
+      label: "notifications",
       onClick: () => handleIconClick("notifications"),
     },
     {
       icon: SettingsIcon,
-      label: "settings icon",
+      label: "settings",
       onClick: () => handleIconClick("settings"),
     },
   ];
@@ -41,32 +38,38 @@ const Navbar = ({ handleIconClick }) => {
   //     console.log("this icone is clicked! ", iconName);
   //   };
   return (
-    <Box sx={{ width: "450px" }}>
-      <Grid container sx={{ padding: "15px" }}>
-        <Grid xs={6}>
-          <img
-            src="https://dashboard.konvey.app/img/logo.35c8c136.png"
-            style={{ width: "150px", height: "50px" }}
-            onClick={() => handleIconClick("homepage")}
-          />
-        </Grid>
-        <Grid xs={6}>
-          {navIcons.map((iconData, index) => (
-            <iconData.icon
-              onClick={iconData.onClick}
-              sx={{
-                color: "black",
-                padding: "5px",
-                paddingTop: "12px",
-                fontSize: "32px",
-              }}
-            />
-          ))}
-        </Grid>
-      </Grid>
-      {/* <Divider sx = {{width: "100vw", height: "1px", color: "black"}}/> */}
+    <Box
+      sx={{
+        paddingY: "15px",
+        paddingX: "15px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}
+    >
+      <Box>
+        <img
+          src="https://dashboard.konvey.app/img/logo.35c8c136.png"
+          style={{ maxHeight: "50px" }}
+          alt="Konvey-logo"
+        />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        {navIcons.map((button, index) => (
+          <IconButton onClick={button.onClick} sx={{color:button.label===activePage && "#6059fd"}}>
+            <button.icon />
+          </IconButton>
+        ))}
+      </Box>
     </Box>
   );
 };
 
 export default Navbar;
+
+// https://dashboard.konvey.app/img/logo.35c8c136.png

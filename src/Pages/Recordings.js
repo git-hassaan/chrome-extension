@@ -21,93 +21,116 @@ import {
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AttachmentIcon from "@mui/icons-material/Attachment";
+import LaunchIcon from "@mui/icons-material/Launch";
+
 const Recordings = () => {
-  const cardText = { fontSize: "12px", textAlign: "left" };
-  const cardGrid = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-  };
   const data = [
     {
       imageLink:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7nN9NapfpDgNKWdzyyb9xYClOoPDQOA0EA&usqp=CAU",
       imgDescription: "This is the first image",
-      date: "2023-07-28",
+      date: "June 7, 2020",
     },
     {
       imageLink:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7nN9NapfpDgNKWdzyyb9xYClOoPDQOA0EA&usqp=CAU",
       imgDescription: "This is the second image",
-      date: "2023-07-29",
+      date: "July 21, 2021",
     },
     {
       imageLink:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7nN9NapfpDgNKWdzyyb9xYClOoPDQOA0EA&usqp=CAU",
       imgDescription: "This is the third image",
-      date: "2023-07-30",
+      date: "Sep 14, 2023",
     },
   ];
   return (
     <Box
       sx={{
         display: "flex",
-        justifyContent: "center",
-        boxShadow: "none",
         flexDirection: "column",
-        //width: "450px",
-        height: "100%",
-        width: "100%",
-        backgroundColor: "#E6E6E3",
+        height: "363px",
+        backgroundColor: "#edf2f7",
+        borderRadius: "0 0 20px 20px",
+        padding: "10px 20px",
       }}
     >
       {data.map((item) => (
-        <Card
+        <Box
           sx={{
-            backgroundColor: "#E6E6E3",
-
-            paddingLeft: "20px",
-            paddingRight: "10px",
             display: "flex",
-            justifyContent: "center",
-            borderRadius: "12px",
-            boxShadow: "none",
+            justifyContent: "space-between",
+            borderRadius: "20px",
+            padding: "10px",
+            marginY: "5px",
           }}
         >
-          <Grid container sx={{ width: "100%" }}>
-            <Grid xs={2.5} sx={cardGrid}>
-              <CardMedia
-                component="img"
-                height="50"
-                image={item.imageLink}
-                alt="Paella dish"
-                sx={{ borderRadius: "12px" }}
-              />
-            </Grid>
-            <Grid xs={7} sx={cardGrid}>
-              <CardContent>
-                <Typography sx={cardText}>{item.imgDescription}</Typography>
-
-                <Typography sx={cardText}>{item.date}</Typography>
-              </CardContent>
-            </Grid>
-            <Grid xs={2.5} sx={cardGrid}>
-              <CardContent sx={{ display: "flex", justifyContent: "right" }}>
-                <AttachmentIcon size="small" sx={cardText} />{" "}
-                <MoreHorizIcon size="small" sx={cardText} />
-              </CardContent>
-            </Grid>
-          </Grid>
-        </Card>
+          <Box>
+            <CardMedia
+              component="img"
+              height="65"
+              image={item.imageLink}
+              alt="Paella dish"
+              sx={{ borderRadius: "12px" }}
+            />
+          </Box>
+          <Box
+            flex={0.8}
+            display="flex"
+            flexDirection="row"
+            alignItems="center"
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "left",
+              }}
+            >
+              <Box>
+                <Typography fontSize="13px" color="rgba(0,0,0,0.7)">
+                  {item.imgDescription}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography fontSize="12px" color="rgba(0,0,0,0.6)">
+                  {item.date}
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <Box display="flex" flexDirection="row" alignItems="center">
+            <AttachmentIcon
+              size="medium"
+              sx={{ fontSize: "19px", marginX: "8px" }}
+            />{" "}
+            <MoreHorizIcon size="medium" sx={{ fontSize: "19px" }} />
+          </Box>
+        </Box>
       ))}
-      <Divider sx = {{width: "100vw", height: "6px", color: "black"}}/>
-      <Typography  sx = {{
-        textAlign: "center",
-        paddingY: "20px",
-        fontWeight: 600,
-        fontSize: "18px"
-      }}>Open video library</Typography>
+
+      <Divider sx={{ marginTop: "10px", backgroundColor: "rgba(0,0,0,0.1)" }} />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          cursor: "pointer",
+          bottom: 0,
+        }}
+      >
+        <Typography
+          sx={{
+            textAlign: "center",
+            paddingY: "17px",
+            fontWeight: 600,
+            fontSize: "16px",
+          }}
+        >
+          Open Video Library &nbsp;
+        </Typography>
+        <LaunchIcon />
+      </Box>
     </Box>
   );
 };

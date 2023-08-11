@@ -4,7 +4,7 @@ import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import VideoLibraryIcon from "@mui/icons-material/VideoLibrary";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
-import { Box, IconButton, Grid, Divider } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 const Navbar = ({ handleIconClick, activePage }) => {
   let navIcons = [
     {
@@ -61,7 +61,11 @@ const Navbar = ({ handleIconClick, activePage }) => {
         }}
       >
         {navIcons.map((button, index) => (
-          <IconButton onClick={button.onClick} sx={{color:button.label===activePage && "#6059fd"}}>
+          <IconButton
+            key={index}
+            onClick={button.onClick}
+            sx={{ color: button.label === activePage && "#6059fd" }}
+          >
             <button.icon />
           </IconButton>
         ))}

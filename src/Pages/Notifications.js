@@ -1,28 +1,15 @@
 import React from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
   Box,
-  Button,
-  Link,
   Card,
   CardContent,
-  CardActions,
-  CardMedia,
   Typography,
   CardHeader,
   Grid,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
-
 import { red } from "@mui/material/colors";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+
 const Notifications = () => {
   const data = [
     {
@@ -47,7 +34,7 @@ const Notifications = () => {
         backgroundColor: "white",
         paddingX: "20px",
         paddingBottom: "63.5px",
-        borderRadius: "0 0 20px 20px",
+        borderRadius: "0 0 10px 10px",
         // overflowY: "scroll",
       }}
     >

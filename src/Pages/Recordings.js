@@ -1,23 +1,5 @@
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Box,
-  Button,
-  Link,
-  Card,
-  CardContent,
-  CardActions,
-  CardMedia,
-  Typography,
-  Grid,
-  Divider,
-} from "@mui/material";
+import { Box, Typography, Divider, CardMedia } from "@mui/material";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import AttachmentIcon from "@mui/icons-material/Attachment";
@@ -49,9 +31,9 @@ const Recordings = () => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: "363px",
+        height: "345px",
         backgroundColor: "#edf2f7",
-        borderRadius: "0 0 20px 20px",
+        borderRadius: "0 0 10px 10px",
         padding: "10px 20px",
       }}
     >

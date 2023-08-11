@@ -1,22 +1,5 @@
 import React from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Box,
-  Button,
-  Link,
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  IconButton,
-  Grid,
-} from "@mui/material";
+import { Box, Card, Typography, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LinkIcon from "@mui/icons-material/Link";
@@ -49,20 +32,13 @@ const AddRequest = () => {
     },
   ];
 
-  const cardText = { fontSize: "8px" };
-  const cardGrid = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-  };
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         backgroundColor: "#edf2f7",
-        borderRadius: "0 0 20px 20px",
+        borderRadius: "0 0 10px 10px",
         height: "363px",
       }}
     >

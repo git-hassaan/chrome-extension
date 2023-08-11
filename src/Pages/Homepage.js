@@ -1,12 +1,22 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Modal } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import MicIcon from "@mui/icons-material/Mic";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import RecordRTC from "recordrtc";
 
 const Homepage = () => {
+  const [isScreen, setIsScreen] = useState(false);
+  const [isCam, setIsCam] = useState(true);
+  const [isCamAndScreen, setIsCamAndScreen] = useState(false);
+  const [microPhone, setMicroPhone] = useState(false);
+
+  const [recording, setRecording] = useState(false);
+  const [recordInstance, setRecordInstance] = useState(null);
+  const [showVideo, setShowVideo] = useState(false);
+
   const IOSSwitch = styled((props) => (
     <Switch
       focusVisibleClassName=".Mui-focusVisible"
@@ -23,7 +33,7 @@ const Homepage = () => {
       transitionDuration: "300ms",
       "&.Mui-checked": {
         transform: "translateX(16px)",
-        color: "rgba(0,100,240,0.7)",
+        color: "rgba(0, 100, 240, 0.7)",
         "& + .MuiSwitch-track": {
           backgroundColor:
             theme.palette.mode === "dark" ? "#2ECA45" : "#c8d8e3",
@@ -62,6 +72,125 @@ const Homepage = () => {
       }),
     },
   }));
+
+  const handleScreenToggle = () => {
+    setIsScreen((prevIsScreen) => !prevIsScreen);
+  };
+
+  const handleCamToggle = () => {
+    setIsCam((prevIsCam) => !prevIsCam);
+  };
+
+  const handleCamAndScreenToggle = () => {
+    setIsCamAndScreen((prevIsCamAndScreen) => !prevIsCamAndScreen);
+  };
+  const handleStartRecording = async () => {
+    if (!recording) {
+      const isRecordingScreen = isScreen || isCamAndScreen;
+      const isRecordingCam = isCam || isCamAndScreen;
+
+      if (isRecordingScreen && !isRecordingCam) {
+        // Request screen stream
+        try {
+          const screenStream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+          });
+
+          const recorder = new RecordRTC(screenStream, {
+            type: "video",
+            mimeType: "video/webm",
+          });
+
+          recorder.startRecording();
+
+          setRecording(true);
+          setRecordInstance(recorder);
+        } catch (error) {
+          console.error("Error accessing screen media:", error);
+        }
+      } else if (!isRecordingScreen && isRecordingCam) {
+        // Request camera stream
+        const constraints = {
+          video: true,
+          audio: microPhone,
+        };
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+          const recorder = new RecordRTC(stream, {
+            type: "video",
+            mimeType: "video/webm",
+          });
+
+          recorder.startRecording();
+
+          setRecording(true);
+          setRecordInstance(recorder);
+        } catch (error) {
+          console.error("Error accessing camera media:", error);
+        }
+      } else if (isRecordingScreen && isRecordingCam) {
+        // Request both camera and screen streams
+        const constraints = {
+          video: true,
+          audio: microPhone,
+        };
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia(constraints);
+          const screenStream = await navigator.mediaDevices.getDisplayMedia({
+            video: true,
+          });
+
+          const combinedStream = new MediaStream([
+            ...stream.getTracks(),
+            ...screenStream.getTracks(),
+          ]);
+
+          const recorder = new RecordRTC(combinedStream, {
+            type: "video",
+            mimeType: "video/webm",
+          });
+
+          recorder.startRecording();
+
+          setRecording(true);
+          setRecordInstance(recorder);
+        } catch (error) {
+          console.error("Error accessing media devices:", error);
+        }
+      } else {
+        console.warn("No recording options selected.");
+      }
+    } else {
+      // Stop recording
+      setShowVideo(true);
+      recordInstance.stopRecording(() => {
+        // Get the recorded blob
+        const recordedBlob = recordInstance.getBlob();
+
+        // Create a URL for the blob
+        const videoUrl = URL.createObjectURL(recordedBlob);
+
+        // Display the recorded video
+        const videoElement = document.createElement("video");
+        videoElement.src = videoUrl;
+        videoElement.controls = true; // Add video controls
+        videoElement.style.width = "100%"; // Set the video width
+
+        // Append the video element to your component's DOM
+        const videoContainer = document.getElementById("video-container");
+        videoContainer.innerHTML = ""; // Clear existing content
+        videoContainer.appendChild(videoElement);
+
+        // Reset state variables
+        setRecording(false);
+        setRecordInstance(null);
+      });
+    }
+  };
+
   return (
     <div>
       <Typography
@@ -86,15 +215,33 @@ const Homepage = () => {
           }}
         >
           <FormControlLabel
-            control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+            control={
+              <IOSSwitch
+                sx={{ m: 1 }}
+                checked={isScreen}
+                onChange={handleScreenToggle}
+              />
+            }
             label="Screen"
-          />{" "}
+          />
           <FormControlLabel
-            control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+            control={
+              <IOSSwitch
+                sx={{ m: 1 }}
+                checked={isCam}
+                onClick={handleCamToggle}
+              />
+            }
             label="Camera"
-          />{" "}
+          />
           <FormControlLabel
-            control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
+            control={
+              <IOSSwitch
+                sx={{ m: 1 }}
+                checked={isCamAndScreen}
+                onChange={handleCamAndScreenToggle}
+              />
+            }
             label="Screen + Cam"
           />
         </Box>
@@ -113,6 +260,7 @@ const Homepage = () => {
             height: "50px",
             width: "270px",
           }}
+          onClick={() => setMicroPhone(!microPhone)}
         >
           <Typography> Default - Microphone </Typography>
 
@@ -127,7 +275,7 @@ const Homepage = () => {
               marginX: "6px",
             }}
           >
-            <b>On</b>
+            <b>{microPhone ? "On" : "Off"}</b>
           </Box>
         </Button>
       </Box>
@@ -153,17 +301,38 @@ const Homepage = () => {
               color: "#6059fd",
             },
           }}
+          disabled={!isCam && !isCamAndScreen && !isScreen}
+          onClick={handleStartRecording}
         >
           <Typography
             sx={{
               fontSize: "22px",
             }}
           >
-            {" "}
-            Start Recording{" "}
+            {recording ? "Stop Recording" : "Start Recording"}
           </Typography>
         </Button>
       </Box>
+      <Modal
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        open={showVideo}
+        onClose={() => setShowVideo(false)}
+      >
+        <div
+          id="video-container"
+          style={{
+            width: "50%",
+            height: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        ></div>
+      </Modal>
     </div>
   );
 };
